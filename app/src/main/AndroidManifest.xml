@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Optional: a phone without a camera can still import photos (camera LLD §5). -->
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- No INTERNET permission, in any build (D3). MediaPipe Tasks brings in Google's
+         datatransport (usage telemetry), which asks for it; it is stripped here, so the
+         OS refuses every socket and nothing can leave the phone. tool/build_in_docker.sh
+         and CI fail if the merged manifest still has it.
+         ACCESS_NETWORK_STATE, which the same library asks for, is left: it cannot send
+         anything, and JobScheduler requires it for the network-constrained retry jobs
+         the library schedules — removing it risks a SecurityException there. -->
+    <uses-permission android:name="android.permission.INTERNET" tools:node="remove" />
+
+    <application
+        android:name=".GarmentColourApp"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="${appLabel}"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.GarmentColour">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

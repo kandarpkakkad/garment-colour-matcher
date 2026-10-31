@@ -1,0 +1,138 @@
+name: Debug build
+
+# Every push to main, and on demand: the APK you install to try something.
+# It never touches the release key.
+#
+# A push to main bumps the patch version first, so every debug APK is newer
+# than the last. A pull request builds without bumping. A push that only
+# touches docs or markdown builds nothing (paths-ignore skips only when every
+# changed file matches).
+on:
+  push:
+    branches: [main]
+    paths-ignore: &not-code
+      - 'docs/**'
+      - '**/*.md'
+      - 'LICENSE'
+      - '.gitignore'
+  pull_request:
+    branches: [main]
+    paths-ignore: *not-code
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Build at this exact version instead of bumping (e.g. 0.2.0)'
+        required: false
+
+concurrency:
+  group: debug-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    # A normal run is well under this (D21). A hung Gradle or download would
+    # otherwise hold the runner for GitHub's six-hour default.
+    timeout-minutes: 40
+    permissions:
+      contents: write        # to push the version bump back to main
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - name: Version
+        id: version
+        run: |
+          set -euo pipefail
+          if [ -n "${{ github.event.inputs.version }}" ]; then
+            V="$(tool/bump_version.sh set '${{ github.event.inputs.version }}')"
+          elif [ "${{ github.event_name }}" = "push" ]; then
+            V="$(tool/bump_version.sh patch)"
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add version.properties
+            # The skip-ci marker stops this commit from triggering this workflow
+            # again, which would bump again, for ever.
+            git commit -m "v$V [skip ci]"
+            git pull --rebase --autostash
+            git push
+          else
+            V="$(grep -E '^versionName=' version.properties | cut -d= -f2)"
+          fi
+          echo "version=$V" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      # The models are fetched and pinned by script, never committed (D12). The
+      # cache key is the script: change a pin, and the next run re-fetches.
+      - name: Restore models
+        id: models
+        uses: actions/cache@v4
+        with:
+          path: app/src/main/assets/models
+          key: models-${{ hashFiles('tool/models/fetch_models.py') }}
+
+      - name: Fetch models
+        if: steps.models.outputs.cache-hit != 'true'
+        run: |
+          pip install -q numpy==2.1.3 onnx==1.17.0 onnxruntime==1.20.1 pillow==11.0.0
+          timeout 20m python -I tool/models/fetch_models.py --cache "$RUNNER_TEMP/models" --out app/src/main/assets/models
+
+      - name: Python reference
+        working-directory: spike
+        run: |
+          pip install -q -r requirements.txt
+          timeout 10m python test_spike.py
+
+      - name: Restore debug signing key
+        env:
+          DEBUG_KEYSTORE_B64: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$DEBUG_KEYSTORE_B64" ]; then
+            echo "::warning::ANDROID_DEBUG_KEYSTORE_BASE64 is not set. This APK is signed with a throwaway key: it will not install over a previous debug build without an uninstall, and an uninstall deletes every capture."
+            exit 0
+          fi
+          echo "$DEBUG_KEYSTORE_B64" | base64 --decode > debug.keystore
+
+      # Includes FixtureParityTest, the phase 2 gate.
+      - name: Test and build
+        run: timeout 30m ./gradlew --no-daemon :color-engine:test :app:testDebugUnitTest :app:assembleDebug
+
+      - name: No INTERNET permission (D3)
+        run: |
+          manifest=$(find app/build/intermediates -path '*merged_manifest*debug*' -name AndroidManifest.xml | head -1)
+          if grep -q 'android.permission.INTERNET' "$manifest"; then
+            echo "::error::A dependency brought the INTERNET permission into the merged manifest."
+            grep -n 'uses-permission' "$manifest"
+            exit 1
+          fi
+
+      - name: Shred the key
+        if: always()
+        run: rm -f debug.keystore
+
+      - name: Name them
+        env:
+          V: ${{ steps.version.outputs.version }}
+        run: |
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-arm64-v8a-debug.apk "dist/garment-colour-debug-$V-arm64.apk"
+          cp app/build/outputs/apk/debug/app-x86_64-debug.apk "dist/garment-colour-debug-$V-x86_64.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: garment-colour-debug-${{ steps.version.outputs.version }}
+          path: dist/*.apk
+          retention-days: 14
+          compression-level: 0    # an APK is already a zip

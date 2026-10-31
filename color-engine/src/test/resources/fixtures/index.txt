@@ -1,0 +1,13 @@
+outfit-tungsten
+outfit-daylight
+outfit-fluorescent
+dominant-tungsten
+dominant-overcast
+dominant-led
+neutrals-sun
+neutrals-tungsten
+no-skin-fluorescent
+mixed-window-lamp
+overexposed-daylight
+centre-box-tungsten
+no-scene-tungsten

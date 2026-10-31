@@ -1,0 +1,464 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "cdd564805f8b4f6a411b91c949b73e58",
+    "entities": [
+      {
+        "tableName": "captures",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `created_at` INTEGER NOT NULL, `source` TEXT NOT NULL, `capture_path` TEXT NOT NULL, `exposure_gain` REAL NOT NULL, `width` INTEGER NOT NULL, `height` INTEGER NOT NULL, `source_megapixels` REAL NOT NULL, `downscaled` INTEGER NOT NULL, `tier` TEXT NOT NULL, `est_r` REAL, `est_g` REAL, `est_b` REAL, `est_answers` TEXT NOT NULL, `est_disagreement` REAL, `est_support` REAL NOT NULL, `est_score` REAL NOT NULL, `est_level` TEXT NOT NULL, `est_reason` TEXT, `applied_r` REAL NOT NULL, `applied_g` REAL NOT NULL, `applied_b` REAL NOT NULL, `applied_method` TEXT NOT NULL, `applied_x` REAL NOT NULL, `applied_y` REAL NOT NULL, `engine_version` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capturePath",
+            "columnName": "capture_path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "exposureGain",
+            "columnName": "exposure_gain",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "width",
+            "columnName": "width",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "height",
+            "columnName": "height",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceMegapixels",
+            "columnName": "source_megapixels",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downscaled",
+            "columnName": "downscaled",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tier",
+            "columnName": "tier",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estR",
+            "columnName": "est_r",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "estG",
+            "columnName": "est_g",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "estB",
+            "columnName": "est_b",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "estAnswers",
+            "columnName": "est_answers",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estDisagreement",
+            "columnName": "est_disagreement",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "estSupport",
+            "columnName": "est_support",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estScore",
+            "columnName": "est_score",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estLevel",
+            "columnName": "est_level",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estReason",
+            "columnName": "est_reason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "appliedR",
+            "columnName": "applied_r",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedG",
+            "columnName": "applied_g",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedB",
+            "columnName": "applied_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedMethod",
+            "columnName": "applied_method",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedX",
+            "columnName": "applied_x",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appliedY",
+            "columnName": "applied_y",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "engineVersion",
+            "columnName": "engine_version",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "garments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `capture_id` TEXT NOT NULL, `rank` INTEGER NOT NULL, `label` TEXT NOT NULL, `fraction` REAL NOT NULL, `box_l` REAL NOT NULL, `box_t` REAL NOT NULL, `box_r` REAL NOT NULL, `box_b` REAL NOT NULL, `lin_r` REAL NOT NULL, `lin_g` REAL NOT NULL, `lin_b` REAL NOT NULL, `xyz_x` REAL NOT NULL, `xyz_y` REAL NOT NULL, `xyz_z` REAL NOT NULL, `lab_l` REAL NOT NULL, `lab_a` REAL NOT NULL, `lab_b` REAL NOT NULL, `hex` TEXT NOT NULL, `clipped` INTEGER NOT NULL, FOREIGN KEY(`capture_id`) REFERENCES `captures`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captureId",
+            "columnName": "capture_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rank",
+            "columnName": "rank",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "fraction",
+            "columnName": "fraction",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boxL",
+            "columnName": "box_l",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boxT",
+            "columnName": "box_t",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boxR",
+            "columnName": "box_r",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "boxB",
+            "columnName": "box_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "linR",
+            "columnName": "lin_r",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "linG",
+            "columnName": "lin_g",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "linB",
+            "columnName": "lin_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xyzX",
+            "columnName": "xyz_x",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xyzY",
+            "columnName": "xyz_y",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "xyzZ",
+            "columnName": "xyz_z",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "labL",
+            "columnName": "lab_l",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "labA",
+            "columnName": "lab_a",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "labB",
+            "columnName": "lab_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hex",
+            "columnName": "hex",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "clipped",
+            "columnName": "clipped",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_garments_capture_id",
+            "unique": false,
+            "columnNames": [
+              "capture_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_garments_capture_id` ON `${TABLE_NAME}` (`capture_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "captures",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "capture_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "adjustments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `capture_id` TEXT NOT NULL, `created_at` INTEGER NOT NULL, `kind` TEXT NOT NULL, `tap_u` REAL, `tap_v` REAL, `box_l` REAL, `box_t` REAL, `box_r` REAL, `box_b` REAL, `before_r` REAL NOT NULL, `before_g` REAL NOT NULL, `before_b` REAL NOT NULL, `after_r` REAL NOT NULL, `after_g` REAL NOT NULL, `after_b` REAL NOT NULL, `angle_deg` REAL NOT NULL, FOREIGN KEY(`capture_id`) REFERENCES `captures`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "captureId",
+            "columnName": "capture_id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "created_at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tapU",
+            "columnName": "tap_u",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "tapV",
+            "columnName": "tap_v",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "boxL",
+            "columnName": "box_l",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "boxT",
+            "columnName": "box_t",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "boxR",
+            "columnName": "box_r",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "boxB",
+            "columnName": "box_b",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "beforeR",
+            "columnName": "before_r",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beforeG",
+            "columnName": "before_g",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "beforeB",
+            "columnName": "before_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "afterR",
+            "columnName": "after_r",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "afterG",
+            "columnName": "after_g",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "afterB",
+            "columnName": "after_b",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "angleDeg",
+            "columnName": "angle_deg",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_adjustments_capture_id",
+            "unique": false,
+            "columnNames": [
+              "capture_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_adjustments_capture_id` ON `${TABLE_NAME}` (`capture_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "captures",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "capture_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cdd564805f8b4f6a411b91c949b73e58')"
+    ]
+  }
+}

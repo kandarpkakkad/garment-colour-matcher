@@ -1,0 +1,29 @@
+# Gradle and Android
+.gradle/
+build/
+/local.properties
+/app/release/
+/app/debug/
+*.apk
+*.aab
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+
+# Signing — never committed (app/build.gradle.kts, release.yml)
+/key.properties
+*.jks
+*.keystore
+
+# Models are fetched, verified and quantised by tool/models_in_docker.sh (D12)
+/app/src/main/assets/models/
+
+# Python
+__pycache__/
+*.pyc
+
+# Misc
+.DS_Store
+*.log
