@@ -54,7 +54,10 @@ Install `build/docker/garment-colour-debug-arm64-v8a.apk` on the phone with `adb
 [`docs/PRD.md`](docs/PRD.md) is the product; [`docs/00-overview/decisions.md`](docs/00-overview/decisions.md)
 holds the why behind every choice; [`AGENTS.md`](AGENTS.md) is how work is done here.
 
-## Licences of the models
+## Licences
+
+The code and documents are MIT — see [`LICENSE`](LICENSE). The models are not in this
+repository; `tool/models_in_docker.sh` downloads them, and each keeps its own terms:
 
 - MediaPipe Selfie Multiclass — Google, Apache 2.0.
 - SegFormer B2 clothes — `mattmdjaga/segformer_b2_clothes`. Training code MIT; the weights'

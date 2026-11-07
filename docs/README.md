@@ -6,7 +6,7 @@ Start with the [PRD](PRD.md), then the [overview HLD](00-overview/hld.md) and th
 | | |
 |---|---|
 | [`PRD.md`](PRD.md) | What v1 is, for whom, and the phases |
-| **00-overview** | [`hld.md`](00-overview/hld.md) · [`decisions.md`](00-overview/decisions.md) (D1–D22) · [`glossary.md`](00-overview/glossary.md) |
+| **00-overview** | [`hld.md`](00-overview/hld.md) · [`decisions.md`](00-overview/decisions.md) (D1–D24) · [`glossary.md`](00-overview/glossary.md) |
 | **01-platform** | camera [hld](01-platform/camera/hld.md) [lld](01-platform/camera/lld.md) · models [hld](01-platform/models/hld.md) [lld](01-platform/models/lld.md) · storage [hld](01-platform/storage/hld.md) [lld](01-platform/storage/lld.md) [schema](01-platform/storage/schema.md) · versioning [lld](01-platform/versioning/lld.md) |
 | **02-domain** | colour [hld](02-domain/colour/hld.md) [lld](02-domain/colour/lld.md) · illuminant [hld](02-domain/illuminant/hld.md) [lld](02-domain/illuminant/lld.md) · parsing [hld](02-domain/parsing/hld.md) [lld](02-domain/parsing/lld.md) · garments [hld](02-domain/garments/hld.md) [lld](02-domain/garments/lld.md) · pipeline [hld](02-domain/pipeline/hld.md) [lld](02-domain/pipeline/lld.md) · RAW [hld](02-domain/raw/hld.md) [lld](02-domain/raw/lld.md) |
 | **03-frontend** | [`design-system.md`](03-frontend/design-system.md) · [`navigation.md`](03-frontend/navigation.md) · [`screens.md`](03-frontend/screens.md) |
@@ -29,4 +29,4 @@ As of 2026-11-01.
 | Camera, both model runtimes on Android | Built | **Never run on a phone** |
 | RAW's gate — ΔE gain over JPEG on identical scenes | **Not run** — needs a phone | — |
 | The owner's adversarial set (phase 1) | **Not started** — needs photos | — |
-| CI workflows | Written | Parsed. **Never run on GitHub** |
+| CI workflows | Debug build runs on GitHub | Passed 2026-11-01: models fetched against their sha256 pins, the Python checks, every unit test incl. parity, the no-`INTERNET` check, APK uploaded. **Release never run** — needs the signing secrets |
