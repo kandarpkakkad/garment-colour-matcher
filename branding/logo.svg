@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Garment Colour: the launcher icon's shirt (res/drawable/ic_launcher_foreground.xml) on
+       its background (#2B2B2B), split down the middle: the left half is a white shirt as warm
+       indoor light shows it, the right half is the same shirt with the cast removed. -->
+  <defs>
+    <path id="shirt" d="M42,32 L48,29 Q54,35 60,29 L66,32 L78,42 L72,51 L67,47 L67,79 L41,79 L41,47 L36,51 L30,42 Z"/>
+    <clipPath id="left"><rect x="0" y="0" width="54" height="108"/></clipPath>
+    <clipPath id="right"><rect x="54" y="0" width="54" height="108"/></clipPath>
+  </defs>
+  <rect width="512" height="512" fill="#2B2B2B"/>
+  <g transform="translate(256,256) scale(5.6) translate(-54,-54)" stroke-width="3" stroke-linejoin="round">
+    <use href="#shirt" clip-path="url(#left)" fill="#F0B464" stroke="#F0B464"/>
+    <use href="#shirt" clip-path="url(#right)" fill="#FFFFFF" stroke="#FFFFFF"/>
+  </g>
+</svg>

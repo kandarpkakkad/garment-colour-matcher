@@ -1,3 +1,5 @@
+<img src="branding/logo-512.png" alt="Garment Colour logo: a shirt, half warm-tinted and half white" width="96">
+
 # Garment Colour
 
 Point an Android phone at an outfit and get the same photo back with the garments' **true

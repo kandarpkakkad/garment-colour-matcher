@@ -48,3 +48,22 @@ line up and a `0` is never read as an `O`.
   the reason (illuminant LLD §5) and the tap button. `USER`: a chip, *Set from the spot you
   tapped*, and *Use the estimate*.
 - **Shutter.** A 72 dp white disc with a 4 dp grey ring; disabled at 40 % opacity.
+
+## 5. App icon
+
+A shirt split down the middle on `#2B2B2B`: the left half is a white shirt as warm indoor
+light shows it (`#F0B464`), the right half the same shirt with the cast removed. It says what
+the app does. D22 governs the UI chrome, not the icon — this is the one place outside the
+photo with a hue.
+
+The source is `branding/logo.svg` (512 × 512); `logo-512.png` and `logo-120.png` beside it
+are renders — the 120 px one is the logo on Google's sign-in branding.
+
+| Layer | File |
+|---|---|
+| Background | `@color/ic_launcher_background`, `#2B2B2B` |
+| Foreground | `drawable/ic_launcher_foreground.xml` — the shirt twice, each clipped to one half |
+| Monochrome (themed icons) | `drawable/ic_launcher_monochrome.xml` — the plain shirt; one tint cannot show the split |
+
+The shirt is the same path in the vectors and in the SVG (108-unit coordinates; the SVG
+scales it by 5.6).
