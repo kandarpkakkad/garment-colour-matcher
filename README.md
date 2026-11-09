@@ -51,6 +51,11 @@ tool/spike_in_docker.sh bench # the synthetic benchmark
 
 Install `build/docker/garment-colour-debug-arm64-v8a.apk` on the phone with `adb install -r`.
 
+**Or skip the build:** each [release](https://github.com/kandarpkakkad/garment-colour-matcher/releases)
+carries a signed `garment-colour-vX.Y.Z-arm64.apk` for Android 16 phones, models included.
+Allow installs from your browser or file manager, open the APK, and later releases update it
+in place.
+
 ## Documents
 
 [`docs/PRD.md`](docs/PRD.md) is the product; [`docs/00-overview/decisions.md`](docs/00-overview/decisions.md)

@@ -29,4 +29,4 @@ As of 2026-11-01.
 | Camera, both model runtimes on Android | Built | **Never run on a phone** |
 | RAW's gate — ΔE gain over JPEG on identical scenes | **Not run** — needs a phone | — |
 | The owner's adversarial set (phase 1) | **Not started** — needs photos | — |
-| CI workflows | Debug build runs on GitHub | Passed 2026-11-01: models fetched against their sha256 pins, the Python checks, every unit test incl. parity, the no-`INTERNET` check, APK uploaded. **Release never run** — needs the signing secrets |
+| CI workflows | Both run on GitHub | Debug build passed 2026-11-01 and on every push since: models against their sha256 pins, the Python checks, every unit test incl. parity, the no-`INTERNET` check. Signing secrets set 2026-11-09. First release **v0.2.0** (2026-11-09): signed with the release key, SHA-1 `35:10:D4:…:DC:45`, both models inside, no `INTERNET`. **Never installed on a phone** |
